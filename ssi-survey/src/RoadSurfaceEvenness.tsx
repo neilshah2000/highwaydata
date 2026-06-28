@@ -1,6 +1,8 @@
 import type { DataFrame } from "danfojs";
+import { toJSON } from "danfojs";
 import { useEffect } from "react";
-import { RSE_WARN, type RSEMetricData } from "./SurveyCalculations";
+import { RSE_WARN, type RSE, type RSEMetricData } from "./SurveyCalculations";
+import Map from "./Map";
 
 type IProps = {
   rse_nb_plot: DataFrame;
@@ -89,6 +91,7 @@ function RoadSurfaceEvenness({
   }, []);
   const top10 = rse_display_data.rseSpikes.head(10);
   console.log({ cols: top10.columns, rows: top10.values });
+  const top10Map = toJSON(top10) as RSE[]; // TODO: not an RSE, contains only the table display fields
   return (
     <>
       <div>
@@ -124,6 +127,7 @@ function RoadSurfaceEvenness({
             ))}
           </tbody>
         </table>
+        <Map title="RSE worst readings" surveyPoints={top10Map}></Map>
         <div id="nb_rse_plot_div"></div>
         <div id="sb_rse_plot_div"></div>
       </div>

@@ -1,6 +1,7 @@
 import type { DataFrame } from "danfojs";
 import { useEffect } from "react";
-import { ETD_MIN, type ETDMetricData } from "./SurveyCalculations";
+import { ETD_MIN, type ETDMetricData, type SurveyPoint } from "./SurveyCalculations";
+import Map from "./Map";
 
 type IProps = {
   etd_nb_plot: DataFrame;
@@ -90,12 +91,14 @@ function EstimatedTextureDepth({
     etd_display_data.etdTotalCount
   ).toFixed(1);
   const passPercent = (100 - parseFloat(failPercent)).toFixed(1);
+
   return (
     <>
       <div>
         <h3 className="text-lg mb-2 underline">
           Estimated Texture Depth (ETD)
         </h3>
+
         <div>Mean Track 3 : {etd_display_data.etdMeanTrack3.toFixed(3)} mm</div>
         <div>Mean Track 4 : {etd_display_data.etdMeanTrack4.toFixed(3)} mm</div>
         <div>Total ETD readings : {etd_display_data.etdTotalCount}</div>
@@ -132,6 +135,7 @@ function EstimatedTextureDepth({
           </tbody>
         </table>
 
+        <Map title="ETD Readings" surveyPoints={etd_display_data.etdData}></Map>
         <div id="nb_etd_plot_div"></div>
         <div id="sb_etd_plot_div"></div>
       </div>

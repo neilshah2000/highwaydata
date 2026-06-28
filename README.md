@@ -1,8 +1,8 @@
 # Description
 
 - Dashboard for analysing Road Surface Evenness and Estimated Texture Depth from road survey data
-![alt text](ssi-survey/image.png)
-![alt text](ssi-survey/image-1.png)
+![alt text](image.png)
+![alt text](image-1.png)
 
 
 # Setup

@@ -1,4 +1,4 @@
-import { DataFrame } from "danfojs";
+import { DataFrame, toJSON } from "danfojs";
 
 export const ETD_MIN = 0.7;
 export const RSE_WARN = 1.0;
@@ -67,6 +67,7 @@ export class SurveyCalculations {
       etdMeanTrack3: this.etd["etd_track_3"].mean(),
       etdMeanTrack4: this.etd["etd_track_4"].mean(),
       etdFailingData: filtered,
+      etdData: toJSON(this.etd) as ETD[],
     };
   }
 
@@ -140,6 +141,9 @@ export interface SurveyPoint {
   section: number;
   chainage: number;
   survey_type: string;
+  etd_track_3: number | null;
+  etd_track_4: number | null;
+  rse_track_1: number | null;
   latitude: number;
   longitude: number;
   location: string;
@@ -157,6 +161,7 @@ export interface SurveyPoint {
   created_timestamp: string;
 }
 
+
 export type RawSurveyPoint = SurveyPoint & Record<string, unknown>;
 
 interface ETD extends SurveyPoint {
@@ -164,7 +169,7 @@ interface ETD extends SurveyPoint {
   etd_track_4: number;
 }
 
-interface RSE extends SurveyPoint {
+export interface RSE extends SurveyPoint {
   rse_track_1: number;
 }
 
@@ -195,4 +200,5 @@ export type ETDMetricData = {
   etdMeanTrack3: number;
   etdMeanTrack4: number;
   etdFailingData: DataFrame;
+  etdData: ETD[];
 };
